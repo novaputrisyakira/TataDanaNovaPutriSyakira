@@ -29,7 +29,15 @@ export interface TataDanaDatabaseState {
   payments: PaymentTransaction[];
   telegramUpdates: { update_id: number; processed_at: string }[];
   phoneOtps: { [phone: string]: { code: string; expiresAt: number } };
-  sessions: { [token: string]: { userId: string; role: "admin" | "user"; expiresAt: number } };
+  sessions: {
+    [token: string]: {
+      userId: string;
+      role: "admin" | "user";
+      verificationStatus?: "approved" | "pending" | "rejected";
+      status?: "approved" | "pending" | "rejected";
+      expiresAt: number;
+    };
+  };
   magicTokens: { [token: string]: { userId: string; email: string; expiresAt: number; used: boolean } };
 }
 

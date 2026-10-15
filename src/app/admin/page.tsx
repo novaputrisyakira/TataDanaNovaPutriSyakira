@@ -120,11 +120,15 @@ export default function AdminOverviewPage() {
   };
 
   const handleReject = async (userId: string, userName: string) => {
-    const reason = window.prompt(
-      `Masukkan alasan penolakan untuk akun ${userName}:`,
-      "Data pendaftaran tidak valid atau tidak memenuhi kriteria verifikasi."
-    );
-    if (reason === null) return; // cancelled
+    const promptInput =
+      typeof window !== "undefined"
+        ? window.prompt(
+            `Masukkan alasan penolakan untuk akun ${userName}:`,
+            "Data pendaftaran tidak valid atau tidak memenuhi kriteria verifikasi."
+          )
+        : null;
+    if (promptInput === null) return; // cancelled
+    const reason = promptInput.trim() || "Data pendaftaran tidak valid atau tidak memenuhi kriteria verifikasi.";
 
     setProcessingId(userId);
     setActionNotice(null);
@@ -132,7 +136,7 @@ export default function AdminOverviewPage() {
       const res = await fetch("/api/admin/users/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, action: "reject", reason: reason.trim() }),
+        body: JSON.stringify({ userId, action: "reject", reason }),
       });
       const data = await res.json();
       if (data.ok) {

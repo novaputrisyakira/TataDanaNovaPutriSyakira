@@ -7,6 +7,7 @@ export interface SessionData {
   userId: string;
   role: "admin" | "user";
   status: "approved" | "pending" | "rejected";
+  verificationStatus?: "approved" | "pending" | "rejected";
   expiresAt: number;
 }
 
@@ -94,7 +95,12 @@ export async function verifySignedSessionToken(token: string): Promise<{
     const key = await getHmacKey();
     const sigArr = base64UrlToBytes(sigB64);
 
-    const isValid = await crypto.subtle.verify("HMAC", key, sigArr, enc.encode(payloadB64));
+    const isValid = await crypto.subtle.verify(
+      "HMAC",
+      key,
+      sigArr as unknown as BufferSource,
+      enc.encode(payloadB64) as unknown as BufferSource
+    );
     if (!isValid) return null;
 
     const payloadJson = base64UrlToStr(payloadB64);

@@ -45,6 +45,7 @@ export async function createSession(
   dbStore.state.sessions[token] = {
     userId,
     role,
+    status: vStatus,
     verificationStatus: vStatus,
     expiresAt,
   };
@@ -64,6 +65,7 @@ export async function getSession(token: string): Promise<SessionData | null> {
     return {
       userId: verified.userId,
       role: verified.role,
+      status: verified.status,
       verificationStatus: verified.status,
       expiresAt: verified.expiresAt,
     };
@@ -73,7 +75,14 @@ export async function getSession(token: string): Promise<SessionData | null> {
   if (dbStore.state.sessions && dbStore.state.sessions[token]) {
     const mem = dbStore.state.sessions[token];
     if (Date.now() <= mem.expiresAt) {
-      return mem;
+      const vStatus = mem.status || mem.verificationStatus || "pending";
+      return {
+        userId: mem.userId,
+        role: mem.role,
+        status: vStatus,
+        verificationStatus: vStatus,
+        expiresAt: mem.expiresAt,
+      };
     }
     delete dbStore.state.sessions[token];
   }

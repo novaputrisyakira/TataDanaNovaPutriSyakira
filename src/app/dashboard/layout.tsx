@@ -1,31 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { TelegramSimulator } from "@/components/dashboard/TelegramSimulator";
 import { TransactionModal } from "@/components/transactions/TransactionModal";
 import { Profile, Wallet, Category, Transaction, Budget } from "@/types";
-
-interface DashboardContextType {
-  profile: Profile;
-  wallets: Wallet[];
-  categories: Category[];
-  transactions: Transaction[];
-  budgets: Budget[];
-  refreshData: () => Promise<void>;
-  openSimulator: (action?: string) => void;
-  openTransactionModal: () => void;
-}
-
-const DashboardContext = createContext<DashboardContextType | null>(null);
-
-export const useDashboard = () => {
-  const ctx = useContext(DashboardContext);
-  if (!ctx) throw new Error("useDashboard must be used within DashboardLayout");
-  return ctx;
-};
+import { DashboardContext } from "@/components/dashboard/DashboardContext";
 
 export default function DashboardLayout({
   children,

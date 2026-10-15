@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { useDashboard } from "./layout";
+import { useDashboard } from "@/components/dashboard/DashboardContext";
 import {
   Wallet as WalletIcon,
   TrendingUp,
@@ -510,7 +510,7 @@ export default function DashboardOverviewPage() {
             <p className="text-xs text-gray-400 mt-1 mb-4">
               Coba simulator bot untuk mencatat transaksi pertamamu sekarang!
             </p>
-            <Button size="sm" onClick={openSimulator}>
+            <Button size="sm" onClick={() => openSimulator()}>
               Buka Simulator Bot
             </Button>
           </div>

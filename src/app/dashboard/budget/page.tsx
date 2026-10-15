@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useDashboard } from "../layout";
+import { useDashboard } from "@/components/dashboard/DashboardContext";
 import { Target, Plus, AlertTriangle, CheckCircle, Sparkles, Bell } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

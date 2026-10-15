@@ -54,13 +54,17 @@ export default function AdminUsersPage() {
   };
 
   const handleVerify = async (userId: string, action: "approve" | "reject", userName: string) => {
-    let reason: string | null = undefined;
+    let reason: string | undefined = undefined;
     if (action === "reject") {
-      reason = window.prompt(
-        `Masukkan alasan penolakan pendaftaran untuk ${userName}:`,
-        "Data pendaftaran tidak memenuhi kriteria verifikasi."
-      );
-      if (reason === null) return; // cancelled
+      const promptInput =
+        typeof window !== "undefined"
+          ? window.prompt(
+              `Masukkan alasan penolakan pendaftaran untuk ${userName}:`,
+              "Data pendaftaran tidak memenuhi kriteria verifikasi."
+            )
+          : null;
+      if (promptInput === null) return; // cancelled
+      reason = promptInput.trim() || "Data pendaftaran tidak memenuhi kriteria verifikasi.";
     }
 
     setProcessingId(userId);

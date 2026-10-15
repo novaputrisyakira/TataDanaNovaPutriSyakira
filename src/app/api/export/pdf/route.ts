@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateFintechPDF } from "@/lib/export/pdf-generator";
 import { dbStore } from "@/lib/storage/store";
-import { requireUser } from "@/lib/auth/session";
+import { requireUser, getSessionUser } from "@/lib/auth/session";
 
 export async function POST(req: NextRequest) {
   try {

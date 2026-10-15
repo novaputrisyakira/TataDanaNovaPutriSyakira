@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useDashboard } from "../layout";
+import { useDashboard } from "@/components/dashboard/DashboardContext";
 import { Wallet as WalletIcon, Plus, Check, Star, ArrowRightLeft, Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

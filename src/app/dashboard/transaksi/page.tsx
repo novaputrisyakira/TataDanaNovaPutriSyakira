@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { useDashboard } from "../layout";
+import { useDashboard } from "@/components/dashboard/DashboardContext";
 import {
   CreditCard,
   Search,

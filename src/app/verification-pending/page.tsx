@@ -185,7 +185,7 @@ function VerificationPendingContent() {
               }));
             }
 
-            if (data.status === "approved" && status !== "approved") {
+            if (data.status === "approved") {
               setStatus("approved");
               setRejectionReason("");
               startAutoRedirect();
